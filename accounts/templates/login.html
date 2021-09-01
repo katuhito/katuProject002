@@ -66,7 +66,7 @@
     <input class="w-100 btn btn-lg btn-primary" type="submit" value="ログイン">
     <!-- パスワードリセットページのリンクテキスト -->
     <br><br>
-    <p><a href="#">パスワードを忘れましたか？</a></p>
+    <p><a href="{% url 'password_reset' %}">パスワードを忘れましたか？</a></p>
     <!-- ログイン直後のリダイレクト先(トップページ)のURLパターンを設定 -->
     <input type="hidden" name="next" value="{% url 'katu002:index' %}">
 

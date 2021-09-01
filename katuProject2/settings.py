@@ -130,3 +130,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+#メール送信のためのクラスを設定
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#Gmail
+DEFAULT_FROM_EMAIL = 'katuhitoh9@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'katuhitoh9@gmail.com'
+EMAIL_HOST_PASSWORD = 'assh ybqk nvpi xuot'
+EMAIL_USE_TLS = True
