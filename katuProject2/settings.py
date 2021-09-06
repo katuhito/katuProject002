@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'katu002.apps.Katu002Config',
     'accounts.apps.AccountsConfig',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'katuhitoh9@gmail.com'
 EMAIL_HOST_PASSWORD = 'assh ybqk nvpi xuot'
 EMAIL_USE_TLS = True
+
+#mediaフォルダーの場所(BASE_DIR以下のmedia)を登録
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#mediaのURLを登録
+MEDIA_URL = '/media/'
