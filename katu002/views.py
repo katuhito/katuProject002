@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from .forms import PhotoPostForm
 from django.utils.decorators import method_decorator
@@ -169,7 +169,41 @@ class MypageView(ListView):
             user=self.request.user).order_by('-posted_at')
         #クエリによって取得されたレコードを返す
         return queryset
-        
+
+class PhotoDeleteView(DeleteView):
+    """レコードの削除を行うビュー
+
+    Attributes:
+        model: モデル
+        template_name: レンダリングするテンプレート
+        paginate_by: １ページに表示するレコードの件数
+        success_url: 削除完了後のリダイレクト先のURL
+    """
+    #操作の対象はPhotoPostモデル
+    model = PhotoPost
+    #photo_delete.htmlをレンダリングする
+    template_name = 'photo_delete.html'
+    #処理完了後にマイページにリダイレクト
+    success_url = reverse_lazy('katu002:photo_delete_done')
+
+    def delete(self, request, *args, **kwargs):
+        """レコードの削除を行う
+
+        Parameters:
+            self: PhotoDeleteViewオブジェクト
+            request: WSGIrequest(HttpRequest)オブジェクト
+            args: 引数として渡される辞書(dict)
+            kwargs: キーワード付きの辞書(dict) {pk: 21}のようにレコードのidが渡される
+
+        Returns:
+            HttpResponseRedirect(success_url)を返してsuccess_urlにリダイレクト
+        """
+        #スーパークラスのdelete()を実行
+        return super().delete(request, *args, **kwargs)
+
+class PhotoDeleteDoneView(TemplateView):
+    template_name = 'photo_delete_done.html'
+
 
     
     
