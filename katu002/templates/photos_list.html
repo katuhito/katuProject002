@@ -24,16 +24,19 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <!-- 詳細ページを表示するボタン -->
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary"onclick="location.href='{% url 'katu002:photo_detail' record.pk %}'">View</button>
                   <!-- カテゴリページを表示するボタン -->
-                  <button type="button" class="btn btn-sm btn-outline-secondary">
+                  <!-- リンク先のURL: photos/<Categorysテーブルのid値> -->
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='{% url 'katu002:photos_cat' category=record.category.id %}'">
                     {{ record.category.title }}
                   </button>
                 </div>
-                <!-- 投稿したユーザーを出力 -->
-                <small class="text-muted">
-                  {{ record.user.username }}
-                </small>
+                <!-- 投稿したユーザー名を出力し、一覧ページへのリンクを設定 -->
+                <a href="{% url 'katu002:user_list' user=record.user.id %}">
+                  <small class="text-muted">
+                    {{ record.user.username }}
+                  </small>
+                </a>
               </div>
             </div>
           </div>

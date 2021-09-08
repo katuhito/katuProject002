@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy
 from .forms import PhotoPostForm
 from django.utils.decorators import method_decorator
@@ -14,7 +14,8 @@ class IndexView(ListView):
     #投稿日時の降順で並べ替える
     queryset = PhotoPost.objects.order_by('-posted_at')
     #１ページに表示するレコードの数
-    paginate_by = 2
+    paginate_by = 3
+
 
 #デコレーターにより、CreatePhotoViewへのアクセスはログインユーザーに限定される
 #ログイン状態で無ければsettings.pyのLOGIN_URLにリダイレクトされる
@@ -67,5 +68,79 @@ class PostSuccessView(TemplateView):
     """
     #post_success.htmlをレンダリングする
     template_name = 'post_success.html'
+
+class CategoryView(ListView):
+    """カテゴリページのビュー
+
+    Attributes:
+        tamplete_name: レンダリングするテンプレート
+        pagonate_by: １ページに表示するレコードの件数
+    """
+    #index.htmlをレンダリングする
+    template_name = 'index.html'
+    #１ページに表示するレコードの件数
+    paginate_by = 3
+    
+    def get_queryset(self):
+        """クエリを実行する
+
+        self.kwargsの取得が必要なため、クラス変数querysetではなく、
+        get_queryset()のオーバーライドによりクエリを実行する
+
+        Returns:
+            クエリによって取得されたレコード
+        """
+        #self.kwargsでキーワードの辞書を取得し、
+        #categoryキーの値(Categoryテーブルのid)を取得
+        category_id = self.kwargs['category']
+        #filter(フィールド名=id)で絞り込む
+        categories = PhotoPost.objects.filter(
+            category=category_id).order_by('-posted_at')
+        #クエリによって取得されたレコードを返す
+        return categories
+
+class UserView(ListView):
+    """カテゴリページのビュー
+
+    Attributes:
+        tamplete_name: レンダリングするテンプレート
+        pagonate_by: １ページに表示するレコードの件数
+    """
+    #index.htmlをレンダリングする
+    template_name = 'index.html'
+    #１ページに表示するレコードの件数
+    paginate_by = 3
+
+    def get_queryset(self):
+        """クエリを実行する
+
+        self.kwargsの取得が必要なため、クラス変数querysetではなく、
+        get_queryset()のオーバーライドによりクエリを実行する
+
+        Returns:
+            クエリによって取得されたレコード
+        """
+        #self.kwargsでキーワードの辞書を取得し、
+        #categoryキーの値(Categoryテーブルのid)を取得
+        user_id = self.kwargs['user']
+        #filter(フィールド名=id)で絞り込む
+        user_list = PhotoPost.objects.filter(
+            user=user_id).order_by('-posted_at')
+        #クエリによって取得されたレコードを返す
+        return user_list
+
+class DetailView(DetailView):
+    """詳細ページのビュー
+
+    投稿記事の詳細を表示するのでDetailViewを継承する
+    Attributes:
+        tamplate_name: レンダリングするテンプレート
+        model: モデルのクラス
+    """
+    #post.htmlをレンダリングする
+    template_name = 'detail.html'
+    #クラス変数modelにモデルPhotoPostを設定
+    model = PhotoPost
+
     
     

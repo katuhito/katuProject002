@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title%}Post Detail{% endblock %}
+
+{% block contents %}
+<!-- Bootstrapのグリッドシステム -->
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- タイトル -->
+            <h2>{{ object.title }}</h2>
+            <!-- コメント -->
+            <p>{{ object.comment }}</p>
+            <br>
+            <!-- 投稿日時 -->
+            <p>{{ object.posted_at }}</p>
+            <!-- １枚目の写真 -->
+            <p><img src="{{ object.image1.url }}"></img></p>
+            <!-- ２枚目の写真が投稿されていたら表示する -->
+            {% if object.image2 %}
+                <p><img src="{{ object.image2.url }}"></img></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
