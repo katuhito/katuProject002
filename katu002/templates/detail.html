@@ -15,10 +15,10 @@
             <!-- 投稿日時 -->
             <p>{{ object.posted_at }}</p>
             <!-- １枚目の写真 -->
-            <p><img src="{{ object.image1.url }}"></img></p>
+            <p><img src="{{ object.image1.url }}"　alt="picture" width="100%" height="100%"></img></p>
             <!-- ２枚目の写真が投稿されていたら表示する -->
             {% if object.image2 %}
-                <p><img src="{{ object.image2.url }}"></img></p>
+                <p><img src="{{ object.image2.url }}" alt="picture" width="100%" height="100%"></img></p>
             {% endif %}
         </div>
     </div>

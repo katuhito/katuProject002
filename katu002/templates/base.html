@@ -50,7 +50,7 @@
             <!-- ナビゲーションメニュー -->
             {% if user.is_authenticated %}
             <!-- ログイン中のメニュー -->
-            <li><a href="#" class="text-white">マイページ</a></li>
+            <li><a href="{% url 'katu002:mypage' %}" class="text-white">マイページ</a></li>
             <li><a href="{% url 'accounts:logout' %}" class="text-white">ログアウト</a></li>
             <li><a href="{% url 'password_reset' %}" class="text-white">パスワードのリセット</a></li>
             <li><a href="mailto:katuhitoh9@gmail.com" class="text-white">Email me</a></li>
