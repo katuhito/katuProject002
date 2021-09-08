@@ -1,14 +1,20 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import PhotoPostForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from .models import PhotoPost
 
 class IndexView(TemplateView):
     #index.htmlwをレンダリングする
     template_name = 'index.html'
+    #モデルPhotoPostのオブジェクトにorder_by()を適用して
+    #投稿日時の降順で並べ替える
+    queryset = PhotoPost.objects.order_by('-posted_at')
+    #１ページに表示するレコードの数
+    paginate_by = 9
 
 #デコレーターにより、CreatePhotoViewへのアクセスはログインユーザーに限定される
 #ログイン状態で無ければsettings.pyのLOGIN_URLにリダイレクトされる
